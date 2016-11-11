@@ -17,6 +17,7 @@ function loadSources() {
 
     source.get(params)
         .then(function (sources) {
+            ARTICLES_CONTAINER.innerHTML = '';
             for (let source of sources) {
                 loadArticles(source);
             }
@@ -35,11 +36,15 @@ function loadArticles(source) {
 
     article.get(params)
         .then(function (articles) {
+            ARTICLES_CONTAINER.innerHTML = '';
             for (let article of articles) {
                 displayArticle(article);
             }
         })
-        .catch(err => NOTIFICATION_CONTAINER.innerText = err.message);
+        .catch(function(err){
+            ARTICLES_CONTAINER.innerHTML = '';
+            NOTIFICATION_CONTAINER.innerText = err.message;
+        });
 }
 
 function displayArticle(article) {
