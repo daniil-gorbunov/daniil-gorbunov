@@ -1,0 +1,23 @@
+{
+  "name": "fe-mentoring-2016",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d scripts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniil-gorbunov/daniil-gorbunov.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daniil-gorbunov/daniil-gorbunov/issues"
+  },
+  "homepage": "https://github.com/daniil-gorbunov/daniil-gorbunov#readme",
+  "devDependencies": {
+    "babel-cli": "^6.18.0"
+  }
+}
