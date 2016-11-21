@@ -2,7 +2,7 @@ const API_KEY = '6d2df7867b8e4cda9d90ea70b9895d9c';
 const NEWS_API_URL = 'https://newsapi.org/v1/';
 const NEWS_API_ARTICLES = 'articles';
 const MEWS_API_SOURCES = 'sources';
-const ROOT_DIR = '/daniil-gorbunov/';
+const ROOT_DIR = '/mentoring-task/';
 const IMAGES_DIR = `${ROOT_DIR}images/`;
 const FLAGS_DIR = `${IMAGES_DIR}flags/`;
 
