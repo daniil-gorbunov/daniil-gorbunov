@@ -1,7 +1,11 @@
-class Article extends Model {
+let constants = require('../constants');
+let Generators = require('../generators');
+let Model = require('./model');
+
+module.exports = class Article extends Model {
 
     constructor() {
-        super(`${NEWS_API_URL}${NEWS_API_ARTICLES}`)
+        super(`${constants.NEWS_API_URL}${constants.NEWS_API_ARTICLES}`)
     }
 
     get(params = new Map()) {
@@ -14,4 +18,4 @@ class Article extends Model {
                 }
             })
     }
-}
+};

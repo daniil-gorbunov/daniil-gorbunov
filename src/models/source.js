@@ -1,7 +1,11 @@
-class Source extends Model {
+let constants = require('../constants');
+let Generators = require('../generators');
+let Model = require('./model');
+
+module.exports = class Source extends Model {
 
     constructor() {
-        super(`${NEWS_API_URL}${MEWS_API_SOURCES}`)
+        super(`${constants.NEWS_API_URL}${constants.NEWS_API_SOURCES}`)
     }
 
     get(params = new Map()) {
@@ -14,4 +18,4 @@ class Source extends Model {
                 }
             })
     }
-}
+};

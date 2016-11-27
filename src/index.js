@@ -1,3 +1,8 @@
+let constants = require('./constants');
+let Article = require('./models/article');
+let Source = require('./models/source');
+let moment = require('moment');
+
 const ARTICLES_CONTAINER = document.getElementById('articles');
 const NOTIFICATION_CONTAINER = document.getElementById('notification');
 
@@ -10,9 +15,9 @@ loadSources();
 function loadSources() {
     let source = new Source();
     let params = new Map([
-        ['category', GLOBAL_SETTINGS.category],
-        ['country', GLOBAL_SETTINGS.country],
-        ['language', GLOBAL_SETTINGS.language],
+        ['category', constants.GLOBAL_SETTINGS.category],
+        ['country', constants.GLOBAL_SETTINGS.country],
+        ['language', constants.GLOBAL_SETTINGS.language],
     ]);
 
     source.get(params)
@@ -52,7 +57,7 @@ function displayArticle(article) {
     articleContainer.setAttribute('class', 'article-container');
     articleContainer.innerHTML = `
 <div class="header"><a target="_blank" href="${article.url}">${article.title}</a></div>
-<div class="image"><img src="${article.urlToImage || IMAGES_DIR + 'no_image.png'}" alt="${article.title}"></div>
+<div class="image"><img src="${article.urlToImage || constants.IMAGES_DIR + 'no_image.png'}" alt="${article.title}"></div>
 <div class="description">${article.description || ''}</div>
 <div class="footer">
     <div class="author">${article.author || 'anonymous'}</div>
@@ -65,20 +70,20 @@ function displayArticle(article) {
 function buildCategoriesMenu() {
     const categoryAttrName = 'data-category';
     let listContainer = document.getElementById('categories-list');
-    for (let category in CATEGORIES) {
-        if (!CATEGORIES.hasOwnProperty(category)) {
+    for (let category in constants.CATEGORIES) {
+        if (!constants.CATEGORIES.hasOwnProperty(category)) {
             continue;
         }
         let categoryListItem = document.createElement('li');
         categoryListItem.setAttribute(categoryAttrName, category);
-        categoryListItem.innerText = CATEGORIES[category];
+        categoryListItem.innerText = constants.CATEGORIES[category];
         categoryListItem.addEventListener('click', function () {
-            GLOBAL_SETTINGS.category = this.getAttribute(categoryAttrName);
+            constants.GLOBAL_SETTINGS.category = this.getAttribute(categoryAttrName);
             document.querySelector('#categories-list li.active').classList.remove('active');
             this.classList.add('active');
             loadSources();
         });
-        if(category === GLOBAL_SETTINGS.category){
+        if(category === constants.GLOBAL_SETTINGS.category){
             categoryListItem.classList.add('active');
         }
         listContainer.appendChild(categoryListItem);
@@ -88,20 +93,20 @@ function buildCategoriesMenu() {
 function buildCountriesSwitcher() {
     const countryAttrName = 'data-country';
     let listContainer = document.getElementById('countries-list');
-    for (let country in COUNTRIES) {
-        if (!COUNTRIES.hasOwnProperty(country)) {
+    for (let country in constants.COUNTRIES) {
+        if (!constants.COUNTRIES.hasOwnProperty(country)) {
             continue;
         }
         let countryListItem = document.createElement('li');
         countryListItem.setAttribute(countryAttrName, country);
-        countryListItem.innerHTML = `<img src="${FLAGS_DIR}${COUNTRIES[country]}" alt="${country}">`;
+        countryListItem.innerHTML = `<img src="${constants.FLAGS_DIR}${constants.COUNTRIES[country]}" alt="${country}">`;
         countryListItem.addEventListener('click', function () {
-            GLOBAL_SETTINGS.country = this.getAttribute(countryAttrName);
+            constants.GLOBAL_SETTINGS.country = this.getAttribute(countryAttrName);
             document.querySelector('#countries-list li.active').classList.remove('active');
             this.classList.add('active');
             loadSources();
         });
-        if(country === GLOBAL_SETTINGS.country){
+        if(country === constants.GLOBAL_SETTINGS.country){
             countryListItem.classList.add('active');
         }
         listContainer.appendChild(countryListItem);
@@ -111,20 +116,20 @@ function buildCountriesSwitcher() {
 function buildLanguagesSwitcher() {
     const languageAttrName = 'data-language';
     let listContainer = document.getElementById('languages-list');
-    for (let language in LANGUAGES) {
-        if (!LANGUAGES.hasOwnProperty(language)) {
+    for (let language in constants.LANGUAGES) {
+        if (!constants.LANGUAGES.hasOwnProperty(language)) {
             continue;
         }
         let languageListItem = document.createElement('li');
         languageListItem.setAttribute(languageAttrName, language);
-        languageListItem.innerHTML = `<img src="${FLAGS_DIR}${LANGUAGES[language]}" alt="${language}">`;
+        languageListItem.innerHTML = `<img src="${constants.FLAGS_DIR}${constants.LANGUAGES[language]}" alt="${language}">`;
         languageListItem.addEventListener('click', function () {
-            GLOBAL_SETTINGS.language = this.getAttribute(languageAttrName);
+            constants.GLOBAL_SETTINGS.language = this.getAttribute(languageAttrName);
             document.querySelector('#languages-list li.active').classList.remove('active');
             this.classList.add('active');
             loadSources();
         });
-        if(language === GLOBAL_SETTINGS.language){
+        if(language === constants.GLOBAL_SETTINGS.language){
             languageListItem.classList.add('active');
         }
         listContainer.appendChild(languageListItem);

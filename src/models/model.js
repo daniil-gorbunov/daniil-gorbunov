@@ -1,8 +1,10 @@
-class Model {
+let constants = require('../constants');
+
+module.exports = class Model {
 
     constructor(apiUri) {
         this.apiUri = apiUri;
-        this.apiKey = API_KEY;
+        this.apiKey = constants.API_KEY;
     }
 
     get(params = new Map()) {
@@ -30,4 +32,4 @@ class Model {
 
         return result.join('&');
     }
-}
+};
