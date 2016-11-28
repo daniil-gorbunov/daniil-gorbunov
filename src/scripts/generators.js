@@ -1,4 +1,4 @@
-module.exports = class Generators {
+export default class Generators {
     static * articleGenerator(response) {
         let idx = 0;
         while (idx < response.articles.length) {

@@ -1,8 +1,7 @@
-// const ROOT_DIR = '/daniil-gorbunov/';
-const ROOT_DIR = '/fe-mentoring-2016_github/';
+const ROOT_DIR = '/daniil-gorbunov/';
 const IMAGES_DIR = `${ROOT_DIR}images/`;
 
-module.exports = {
+export default {
     API_KEY: '6d2df7867b8e4cda9d90ea70b9895d9c',
     NEWS_API_URL: 'https://newsapi.org/v1/',
     NEWS_API_ARTICLES: 'articles',
@@ -43,4 +42,3 @@ module.exports = {
         category: 'general',
     }
 };
-

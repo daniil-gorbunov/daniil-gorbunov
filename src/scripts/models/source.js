@@ -1,8 +1,8 @@
-let constants = require('../constants');
-let Generators = require('../generators');
-let Model = require('./model');
+import constants from '../constants';
+import Generators from'../generators';
+import Model from './model';
 
-module.exports = class Source extends Model {
+export default class Source extends Model {
 
     constructor() {
         super(`${constants.NEWS_API_URL}${constants.NEWS_API_SOURCES}`)
