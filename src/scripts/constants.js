@@ -11,18 +11,18 @@ export default {
     FLAGS_DIR: `${IMAGES_DIR}flags/`,
 
     COUNTRIES: {
-        au: 'au.png',
-        de: 'de.png',
-        gb: 'gb.png',
-        in: 'in.png',
-        it: 'it.png',
-        us: 'us.png',
+        au: 'au',
+        de: 'de',
+        gb: 'gb',
+        in: 'in',
+        it: 'it',
+        us: 'us',
     },
 
     LANGUAGES: {
-        en: 'us.png',
-        fr: 'fr.png',
-        de: 'de.png',
+        en: 'us',
+        fr: 'fr',
+        de: 'de',
     },
 
     CATEGORIES: {

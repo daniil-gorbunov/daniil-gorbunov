@@ -2,6 +2,7 @@ import constants from './scripts/constants';
 import Article from './scripts/models/article';
 import Source from './scripts/models/source';
 import moment from 'moment';
+import './style.styl';
 
 const ARTICLES_CONTAINER = document.getElementById('articles');
 const NOTIFICATION_CONTAINER = document.getElementById('notification');
@@ -54,10 +55,17 @@ function loadArticles(source) {
 
 function displayArticle(article) {
     const articleContainer = document.createElement('div');
+    const img = document.createElement('div');
+    img.classList.add('image');
+    if(article.urlToImage){
+        img.innerHTML = `<img src="${article.urlToImage || constants.IMAGES_DIR + 'no_image.png'}" alt="${article.title}">`
+    }else{
+        img.classList.add('no-image');
+    }
     articleContainer.setAttribute('class', 'article-container');
     articleContainer.innerHTML = `
 <div class="header"><a target="_blank" href="${article.url}">${article.title}</a></div>
-<div class="image"><img src="${article.urlToImage || constants.IMAGES_DIR + 'no_image.png'}" alt="${article.title}"></div>
+${img.outerHTML}
 <div class="description">${article.description || ''}</div>
 <div class="footer">
     <div class="author">${article.author || 'anonymous'}</div>
@@ -99,7 +107,7 @@ function buildCountriesSwitcher() {
         }
         const countryListItem = document.createElement('li');
         countryListItem.setAttribute(countryAttrName, country);
-        countryListItem.innerHTML = `<img src="${constants.FLAGS_DIR}${constants.COUNTRIES[country]}" alt="${country}">`;
+        countryListItem.classList.add('flag', 'flag-icon-background', `flag-icon-${constants.COUNTRIES[country]}`);
         countryListItem.addEventListener('click', function () {
             constants.GLOBAL_SETTINGS.country = this.getAttribute(countryAttrName);
             document.querySelector('#countries-list li.active').classList.remove('active');
@@ -122,7 +130,7 @@ function buildLanguagesSwitcher() {
         }
         const languageListItem = document.createElement('li');
         languageListItem.setAttribute(languageAttrName, language);
-        languageListItem.innerHTML = `<img src="${constants.FLAGS_DIR}${constants.LANGUAGES[language]}" alt="${language}">`;
+        languageListItem.classList.add('flag', 'flag-icon-background', `flag-icon-${constants.LANGUAGES[language]}`);
         languageListItem.addEventListener('click', function () {
             constants.GLOBAL_SETTINGS.language = this.getAttribute(languageAttrName);
             document.querySelector('#languages-list li.active').classList.remove('active');

@@ -1,13 +1,15 @@
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 
+require('es6-promise').polyfill();
+
 module.exports = {
     context: __dirname + '/src',
 
     entry: './index',
     output: {
         path: 'public',
-        publicPath: '/',
+        publicPath: './',
         filename: 'app.js'
     },
 
@@ -21,17 +23,14 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV)
-        })/*,
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'common',
-            minChunks: 2
-        })*/
+        }),
+        new webpack.ContextReplacementPlugin(/node_modules\/moment\/locale/, /en-gb/)
     ],
 
     module: {
         loaders: [{
             test: /\.js$/,
-            exclude: /node_modules/,
+            include: __dirname + '/src',
             loader: 'babel',
             query: {
                 presets: [
@@ -43,9 +42,18 @@ module.exports = {
                 ]
             }
         }, {
+            test: /\.styl/,
+            loader: 'style!css!stylus?resolve url'
+        }, {
             test: /\.(png|jpg|svg)$/,
-            loader: 'url?name=[path][name].[ext]&limit=4096'
+            loader: 'file?name=[1].[ext]&regExp=node_modules/(.*)'
         }]
+    },
+
+    devServer: {
+        host: 'localhost',
+        port: 8001,
+        contentBase: __dirname + '/public'
     }
 
 };
