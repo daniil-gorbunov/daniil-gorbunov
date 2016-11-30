@@ -1,7 +1,11 @@
-class Article extends Model {
+import constants from'../constants';
+import Generators from'../generators';
+import Model from'./model';
+
+export default class Article extends Model {
 
     constructor() {
-        super(`${NEWS_API_URL}${NEWS_API_ARTICLES}`)
+        super(`${constants.NEWS_API_URL}${constants.NEWS_API_ARTICLES}`)
     }
 
     get(params = new Map()) {
@@ -14,4 +18,4 @@ class Article extends Model {
                 }
             })
     }
-}
+};

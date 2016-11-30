@@ -1,17 +1,19 @@
-class Model {
+import constants from '../constants';
+
+export default class Model {
 
     constructor(apiUri) {
         this.apiUri = apiUri;
-        this.apiKey = API_KEY;
+        this.apiKey = constants.API_KEY;
     }
 
     get(params = new Map()) {
         params.set('apiKey', this.apiKey);
-        let uri = `${this.apiUri}?${Model.serialize(params)}`;
-        let init = {
+        const uri = `${this.apiUri}?${Model.serialize(params)}`;
+        const init = {
             method: 'GET'
         };
-        let request = new Request(uri, init);
+        const request = new Request(uri, init);
 
         return fetch(request)
             .then(response => response.json()
@@ -21,13 +23,13 @@ class Model {
     }
 
     static serialize(params = new Map()) {
-        let result = [];
+        const result = [];
         for (let [p, v] of params) {
-            let param = encodeURIComponent(p);
-            let value = encodeURIComponent(v);
+            const param = encodeURIComponent(p);
+            const value = encodeURIComponent(v);
             result.push(`${param}=${value}`);
         }
 
         return result.join('&');
     }
-}
+};
