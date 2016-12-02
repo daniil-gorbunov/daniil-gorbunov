@@ -1,0 +1,7 @@
+ul.countries-list
+  - each country in countries
+    - var activeClass = country.id == activeCountry ? 'active' : ''
+    li(
+      data-country= country.id
+      class= "flag flag-icon-background flag-icon-#{country.abbr} #{activeClass}"
+    )

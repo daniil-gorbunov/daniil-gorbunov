@@ -1,45 +1,50 @@
 'use strict';
 
+import settingsService from './services/settings'
+
 require.ensure([], function (require) {
-    let MenuCategories = require('./menu_categories');
 
-    // const categoryAttrName = 'data-category';
-    const listContainer = document.getElementById('categories-list');
-    let categories = [
-        {
-            id: 1,
-            title: 'cat 1'
-        }, {
-            id: 2,
-            title: 'cat 2'
-        }, {
-            id: 3,
-            title: 'cat 3',
-            active: true
-        }
-    ];
-    // for (let category in constants.CATEGORIES) {
-    //     if (!constants.CATEGORIES.hasOwnProperty(category)) {
-    //         continue;
-    //     }
-    //     const categoryListItem = document.createElement('li');
-    //     categoryListItem.setAttribute(categoryAttrName, category);
-    //     categoryListItem.innerText = constants.CATEGORIES[category];
-    //     categoryListItem.addEventListener('click', function () {
-    //         constants.GLOBAL_SETTINGS.category = this.getAttribute(categoryAttrName);
-    //         document.querySelector('#categories-list li.active').classList.remove('active');
-    //         this.classList.add('active');
-    //         loadSources();
-    //     });
-    //     if(category === constants.GLOBAL_SETTINGS.category){
-    //         categoryListItem.classList.add('active');
-    //     }
-    //     listContainer.appendChild(categoryListItem);
-    // }
+    const MenuCategories = require('./menu_categories').default;
+    const categoriesService = require('./services/categories').default;
 
-    let menuCategories = new MenuCategories({
-        categories: categories
+    const categories = categoriesService.getCategories();
+
+    let menu = new MenuCategories({
+        categories: categories,
+        activeCategory: settingsService.get('category')
     });
 
-    listContainer.appendChild(menuCategories.elem);
+    document.getElementById('top-menu').appendChild(menu.elem);
+});
+
+require.ensure([], function (require) {
+
+    const MenuCountries = require('./menu_countries').default;
+    const countriesService = require('./services/countries').default;
+
+    const countries = countriesService.getCountries();
+    console.log(countries);
+
+    let menu = new MenuCountries({
+        countries: countries,
+        activeCountry: settingsService.get('country')
+    });
+
+    document.getElementById('top-menu').appendChild(menu.elem);
+});
+
+require.ensure([], function (require) {
+
+    const MenuLanguages = require('./menu_languages').default;
+    const languagesService = require('./services/languages').default;
+
+    const languages = languagesService.getLanguages();
+    console.log(languages);
+
+    let menu = new MenuLanguages({
+        languages: languages,
+        activeLanguage: settingsService.get('language')
+    });
+
+    document.getElementById('top-menu').appendChild(menu.elem);
 });

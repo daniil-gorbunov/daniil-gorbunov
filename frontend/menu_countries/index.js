@@ -3,16 +3,16 @@
 import template from './menu.jade';
 import settings from 'services/settings'
 
-export default class MenuCategories {
+export default class MenuCountries {
 
     constructor(options) {
         const menu = document.createElement('div');
         menu.innerHTML = template(options);
 
         for (let item of menu.querySelectorAll('li')) {
-            const id = item.getAttribute('data-category');
+            const id = item.getAttribute('data-country');
             item.addEventListener('click', function () {
-                MenuCategories.setActive(id);
+                MenuCountries.setActive(id);
                 menu.querySelector('li.active').classList.remove('active');
                 item.classList.add('active');
             })
@@ -22,6 +22,6 @@ export default class MenuCategories {
     }
 
     static setActive(id) {
-        settings.set('category', id);
+        settings.set('country', id);
     }
 }

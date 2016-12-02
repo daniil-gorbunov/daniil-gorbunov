@@ -1,0 +1,7 @@
+ul.categories-list
+  - each category in categories
+    - var activeClass = category.id == activeCategory ? 'active' : ''
+    li(
+      data-category= category.id
+      class= activeClass
+    )= category.title
