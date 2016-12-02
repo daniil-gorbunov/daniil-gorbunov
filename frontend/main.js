@@ -1,6 +1,7 @@
 'use strict';
 
 import settingsService from './services/settings'
+import 'styles'
 
 require.ensure([], function (require) {
 
@@ -22,11 +23,8 @@ require.ensure([], function (require) {
     const MenuCountries = require('./menu_countries').default;
     const countriesService = require('./services/countries').default;
 
-    const countries = countriesService.getCountries();
-    console.log(countries);
-
     let menu = new MenuCountries({
-        countries: countries,
+        countries: countriesService.getCountries(),
         activeCountry: settingsService.get('country')
     });
 
@@ -38,11 +36,8 @@ require.ensure([], function (require) {
     const MenuLanguages = require('./menu_languages').default;
     const languagesService = require('./services/languages').default;
 
-    const languages = languagesService.getLanguages();
-    console.log(languages);
-
     let menu = new MenuLanguages({
-        languages: languages,
+        languages: languagesService.getLanguages(),
         activeLanguage: settingsService.get('language')
     });
 

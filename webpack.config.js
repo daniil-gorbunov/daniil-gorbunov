@@ -3,14 +3,14 @@
 // const NODE_ENV = process.env.NODE_ENV || 'development';
 // const webpack = require('webpack');
 let path = require('path');
-let ExtractTextPlugin = require("extract-text-webpack-plugin");
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 
     context: __dirname + '/frontend',
     entry:  {
         main: './main',
-        styles: './styles'
     },
     output:  {
         path:     __dirname + '/public',
@@ -27,7 +27,8 @@ module.exports = {
     devtool: 'eval',
 
     plugins: [
-        new ExtractTextPlugin('[name].css', {allChunks: true})
+        new ExtractTextPlugin('[name].css', {allChunks: true}),
+        new HtmlWebpackPlugin({filename: 'index2.html', template: 'index.jade'})
     ],
 
     module: {
@@ -42,7 +43,7 @@ module.exports = {
             loader: ExtractTextPlugin.extract('css!stylus?paths[]=node_modules,paths[]=frontend&include css&resolve url')
         }, {
             test:   /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
-            loader: 'file?name=[path][name].[ext]'
+            loader: 'file?name=./img/[path][name].[ext]'
         }]
     },
 };
