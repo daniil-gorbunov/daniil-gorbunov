@@ -1,31 +1,24 @@
 'use strict';
 
+import _ from 'lodash';
+
 const languages = [
     {
-        id: 1,
-        title: 'Business',
-    }, {
-        id: 2,
-        title: 'Entertainment',
-    }, {
-        id: 3,
-        title: 'Gaming',
-    }, {
-        id: 4,
-        title: 'General',
+        id: '1',
+        title: 'English',
+        abbr: 'us',
+        apiOption: 'en',
         active: true
     }, {
-        id: 5,
-        title: 'Music',
+        id: '2',
+        title: 'French',
+        abbr: 'fr',
+        apiOption: 'fr'
     }, {
-        id: 6,
-        title: 'Science and Nature',
-    }, {
-        id: 7,
-        title: 'Sport',
-    }, {
-        id: 8,
-        title: 'Technology',
+        id: '3',
+        title: 'German',
+        abbr: 'de',
+        apiOption: 'de'
     }
 ];
 
@@ -43,6 +36,10 @@ class LanguagesService {
 
     getLanguages() {
         return this.languages;
+    }
+
+    getLanguage(id){
+        return _.find(this.languages, {'id': id});
     }
 }
 

@@ -1,7 +1,8 @@
 'use strict';
 
-// const NODE_ENV = process.env.NODE_ENV || 'development';
-// const webpack = require('webpack');
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const webpack = require('webpack');
+
 let path = require('path');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -9,12 +10,10 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
 
     context: __dirname + '/frontend',
-    entry:  {
-        main: './main',
-    },
+    entry:  ['babel-polyfill', './main'],
     output:  {
         path:     __dirname + '/public',
-        publicPath: '/',
+        publicPath: '',
         filename: '[name].js'
     },
 
@@ -23,12 +22,14 @@ module.exports = {
         extensions: ['', '.js', '.styl']
     },
 
-    watch: true,
-    devtool: 'eval',
+    watch: NODE_ENV == 'development',
+
+    devtool: NODE_ENV == 'development' ? 'eval' : null,
 
     plugins: [
+        new webpack.DefinePlugin({NODE_ENV: JSON.stringify(NODE_ENV)}),
         new ExtractTextPlugin('[name].css', {allChunks: true}),
-        new HtmlWebpackPlugin({filename: 'index2.html', template: 'index.jade'})
+        new HtmlWebpackPlugin({filename: 'index.html', template: 'index.jade'})
     ],
 
     module: {

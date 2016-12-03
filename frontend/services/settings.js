@@ -1,14 +1,22 @@
 'use strict';
 
+const settings = {
+    api: {
+        key: '6d2df7867b8e4cda9d90ea70b9895d9c',
+        url: 'https://newsapi.org/v1/',
+        articles: 'articles',
+        sources: 'sources',
+    },
+    category: '4',
+    country: '3',
+    language: '1',
+};
+
 class SettingsService {
 
     constructor() {
         if (!SettingsService.instance) {
-            this.settings = {
-                category: 4,
-                country: 1,
-                language: 1
-            };
+            this.settings = settings;
 
             SettingsService.instance = this;
         }

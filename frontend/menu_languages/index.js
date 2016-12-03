@@ -5,7 +5,7 @@ import settings from 'services/settings'
 
 export default class MenuLanguages {
 
-    constructor(options) {
+    constructor(options, callback) {
         const menu = document.createElement('div');
         menu.innerHTML = template(options);
 
@@ -15,6 +15,7 @@ export default class MenuLanguages {
                 MenuLanguages.setActive(id);
                 menu.querySelector('li.active').classList.remove('active');
                 item.classList.add('active');
+                callback();
             })
         }
 

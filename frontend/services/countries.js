@@ -1,30 +1,38 @@
 'use strict';
 
+import _ from 'lodash';
+
 const countries = [
     {
-        id: 1,
+        id: '1',
         title: 'Australia',
-        abbr: 'au'
+        abbr: 'au',
+        apiOption: 'au'
     }, {
-        id: 2,
+        id: '2',
         title: 'Germany',
-        abbr: 'de'
+        abbr: 'de',
+        apiOption: 'de'
     }, {
-        id: 3,
+        id: '3',
         title: 'Great Britain',
-        abbr: 'gb'
+        abbr: 'gb',
+        apiOption: 'gb'
     }, {
-        id: 4,
+        id: '4',
         title: 'India',
-        abbr: 'in'
+        abbr: 'in',
+        apiOption: 'in'
     }, {
-        id: 5,
+        id: '5',
         title: 'Italy',
-        abbr: 'it'
+        abbr: 'it',
+        apiOption: 'it'
     }, {
-        id: 6,
+        id: '6',
         title: 'USA',
         abbr: 'us',
+        apiOption: 'us',
         active: true
     }
 ];
@@ -43,6 +51,10 @@ class CountriesService {
 
     getCountries() {
         return this.countries;
+    }
+
+    getCountry(id){
+        return _.find(this.countries, {'id': id});
     }
 }
 
