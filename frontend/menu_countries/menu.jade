@@ -1,5 +1,5 @@
 span Country
-ul.countries-list
+ul
   - each country in countries
     - var activeClass = country.id == activeCountry ? 'active' : ''
     li(
