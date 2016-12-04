@@ -1,59 +1,58 @@
-const NODE_ENV = process.env.NODE_ENV || 'development';
-const webpack = require('webpack');
+'use strict';
 
-require('es6-promise').polyfill();
+const NODE_ENV = process.env.NODE_ENV || 'development';
+
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    context: __dirname + '/src',
 
-    entry: './index',
-    output: {
-        path: 'public',
-        publicPath: './',
-        filename: 'app.js'
+    context: __dirname + '/frontend',
+    entry:  './main',
+    output:  {
+        path:     __dirname + '/public',
+        publicPath: '',
+        filename: '[name].js'
+    },
+
+    resolve: {
+        root: path.resolve('./frontend'),
+        extensions: ['', '.js', '.styl']
     },
 
     watch: NODE_ENV == 'development',
-    watchOptions: {
-        aggregateTimeout: 100
-    },
 
-    devtool: NODE_ENV == 'development' ? 'source-map' : null,
+    devtool: NODE_ENV == 'development' ? 'eval' : null,
 
     plugins: [
-        new webpack.DefinePlugin({
-            NODE_ENV: JSON.stringify(NODE_ENV)
-        }),
-        new webpack.ContextReplacementPlugin(/node_modules\/moment\/locale/, /en-gb/)
+        new webpack.DefinePlugin({NODE_ENV: JSON.stringify(NODE_ENV)}),
+        new webpack.ContextReplacementPlugin(/node_modules\/moment\/locale/, /en/),
+        new webpack.optimize.CommonsChunkPlugin({name: 'common'}),
+        new ExtractTextPlugin('[name].css', {allChunks: true}),
+        new HtmlWebpackPlugin({filename: 'index.html', template: 'index.jade'})
     ],
 
     module: {
         loaders: [{
-            test: /\.js$/,
-            include: __dirname + '/src',
-            loader: 'babel',
-            query: {
-                presets: [
-                    'es2015',
-                    'stage-0'
-                ],
-                plugins: [
-                    'transform-runtime'
-                ]
-            }
+            test:   /\.js$/,
+            loader: "babel?presets[]=es2015"
         }, {
-            test: /\.styl/,
-            loader: 'style!css!stylus?resolve url'
+            test:   /\.jade$/,
+            loader: "jade"
         }, {
-            test: /\.(png|jpg|svg)$/,
-            loader: 'file?name=[1].[ext]&regExp=node_modules/(.*)'
+            test:   /\.styl$/,
+            loader: ExtractTextPlugin.extract('css!stylus?paths[]=node_modules,paths[]=frontend&include css&resolve url')
+        }, {
+            test:   /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
+            loader: 'url?name=[path][name].[ext]&limit=4096'
         }]
     },
 
     devServer: {
         host: 'localhost',
-        port: 8001,
+        port: 8080,
         contentBase: __dirname + '/public'
     }
-
 };
