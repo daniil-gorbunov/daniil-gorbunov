@@ -1,25 +1,26 @@
-import constants from '../constants';
+import settings from 'services/settings';
 
-export default class Model {
+export default class BaseModel {
 
     constructor(apiUri) {
         this.apiUri = apiUri;
-        this.apiKey = constants.API_KEY;
+        this.apiKey = settings.get('api')['key'];
     }
 
     get(params = new Map()) {
         params.set('apiKey', this.apiKey);
-        const uri = `${this.apiUri}?${Model.serialize(params)}`;
+        const uri = `${this.apiUri}?${BaseModel.serialize(params)}`;
         const init = {
             method: 'GET'
         };
         const request = new Request(uri, init);
 
         return fetch(request)
-            .then(response => response.json()
-                .then(json => json)
+            .then(
+                response => response.json()
+                    .then(json => json)
             )
-            .catch(err => [])
+            .catch(err => []);
     }
 
     static serialize(params = new Map()) {

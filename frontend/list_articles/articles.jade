@@ -1,0 +1,10 @@
+- each article in articles
+  .article-container
+    .header
+      a(target="_blank" href=article.url)= article.title
+    .image
+      img(src=article.urlToImage alt=article.title)
+    .description= article.description
+    .footer
+      .author= article.author
+      .pubdate= article.publishedAt
