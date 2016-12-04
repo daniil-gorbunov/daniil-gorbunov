@@ -1,7 +1,8 @@
 'use strict';
 
 import template from './menu.jade';
-import settings from 'services/settings'
+import settings from 'services/settings';
+import './index.styl';
 
 export default class MenuLanguages {
 

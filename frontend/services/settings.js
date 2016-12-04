@@ -7,9 +7,9 @@ const settings = {
         articles: 'articles',
         sources: 'sources',
     },
-    category: '4',
-    country: '3',
-    language: '1',
+    category: null,
+    country: 'us',
+    language: 'en',
 };
 
 class SettingsService {

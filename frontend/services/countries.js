@@ -4,34 +4,34 @@ import find from 'lodash/find';
 
 const countries = [
     {
-        id: '1',
+        id: 'au',
         title: 'Australia',
-        abbr: 'au',
+        flagId: 'au',
         apiOption: 'au'
     }, {
-        id: '2',
+        id: 'de',
         title: 'Germany',
-        abbr: 'de',
+        flagId: 'de',
         apiOption: 'de'
     }, {
-        id: '3',
+        id: 'gb',
         title: 'Great Britain',
-        abbr: 'gb',
+        flagId: 'gb',
         apiOption: 'gb'
     }, {
-        id: '4',
+        id: 'in',
         title: 'India',
-        abbr: 'in',
+        flagId: 'in',
         apiOption: 'in'
     }, {
-        id: '5',
+        id: 'it',
         title: 'Italy',
-        abbr: 'it',
+        flagId: 'it',
         apiOption: 'it'
     }, {
-        id: '6',
+        id: 'us',
         title: 'USA',
-        abbr: 'us',
+        flagId: 'us',
         apiOption: 'us',
         active: true
     }

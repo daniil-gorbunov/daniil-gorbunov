@@ -1,8 +1,8 @@
 span Country
 ul
   - each country in countries
-    - var activeClass = country.id == activeCountry ? 'active' : ''
+    - var activeClass = country.id === activeCountry ? 'active' : ''
     li(
       data-country= country.id
-      class= "flag flag-icon-background flag-icon-#{country.abbr} #{activeClass}"
+      class= "flag flag-icon-background flag-icon-#{country.flagId} #{activeClass}"
     )

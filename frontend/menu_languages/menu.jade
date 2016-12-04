@@ -1,8 +1,8 @@
 span Language
 ul
   - each language in languages
-    - var activeClass = language.id == activeLanguage ? 'active' : ''
+    - var activeClass = language.id === activeLanguage ? 'active' : ''
     li(
       data-language= language.id
-      class= "flag flag-icon-background flag-icon-#{language.abbr} #{activeClass}"
+      class= "flag flag-icon-background flag-icon-#{language.flagId} #{activeClass}"
     )

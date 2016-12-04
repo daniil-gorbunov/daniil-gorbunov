@@ -67,7 +67,7 @@ function displayArticles(articles){
             articles: articles
         });
 
-        ARTICLES_CONTAINER.appendChild(list.elem);
+        ARTICLES_CONTAINER.innerHTML += list.elem.innerHTML;
     });
 }
 

@@ -4,20 +4,20 @@ import find from 'lodash/find';
 
 const languages = [
     {
-        id: '1',
+        id: 'en',
         title: 'English',
-        abbr: 'us',
+        flagId: 'us',
         apiOption: 'en',
         active: true
     }, {
-        id: '2',
+        id: 'fr',
         title: 'French',
-        abbr: 'fr',
+        flagId: 'fr',
         apiOption: 'fr'
     }, {
-        id: '3',
+        id: 'de',
         title: 'German',
-        abbr: 'de',
+        flagId: 'de',
         apiOption: 'de'
     }
 ];

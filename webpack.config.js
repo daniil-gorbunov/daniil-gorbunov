@@ -28,6 +28,7 @@ module.exports = {
 
     plugins: [
         new webpack.DefinePlugin({NODE_ENV: JSON.stringify(NODE_ENV)}),
+        new webpack.ContextReplacementPlugin(/node_modules\/moment\/locale/, /en/),
         new webpack.optimize.CommonsChunkPlugin({name: 'common'}),
         new ExtractTextPlugin('[name].css', {allChunks: true}),
         new HtmlWebpackPlugin({filename: 'index.html', template: 'index.jade'})
@@ -45,7 +46,13 @@ module.exports = {
             loader: ExtractTextPlugin.extract('css!stylus?paths[]=node_modules,paths[]=frontend&include css&resolve url')
         }, {
             test:   /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
-            loader: 'file?name=./img/[path][name].[ext]'
+            loader: 'url?name=[path][name].[ext]&limit=4096'
         }]
     },
+
+    devServer: {
+        host: 'localhost',
+        port: 8080,
+        contentBase: __dirname + '/public'
+    }
 };

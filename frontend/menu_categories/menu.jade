@@ -1,6 +1,6 @@
 ul
   - each category in categories
-    - var activeClass = category.id == activeCategory ? 'active' : ''
+    - var activeClass = category.id === activeCategory ? 'active' : ''
     li(
       data-category= category.id
       class= activeClass

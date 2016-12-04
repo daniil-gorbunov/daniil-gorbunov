@@ -2,10 +2,12 @@
 
 import template from './articles.jade';
 import forEach from 'lodash/forEach';
+import moment from 'moment';
+import noImg from 'styles/img/no_image.png'
 
 export default class ListArticles {
 
-    constructor(options, callback) {
+    constructor(options) {
         forEach(options.articles, (article) => ListArticles.beautify(article));
 
         const list = document.createElement('div');
@@ -16,8 +18,8 @@ export default class ListArticles {
     static beautify(article){
         article.author = article.author || 'anonymous';
         article.description = article.description || '';
-        // article.urlToImage = article.urlToImage || constants.IMAGES_DIR + 'no_image.png';
-        // article.publishedAt = article.publishedAt ? moment(article.publishedAt).format('lll') : '';
+        article.urlToImage = article.urlToImage || noImg;
+        article.publishedAt = article.publishedAt ? moment(article.publishedAt).format('lll') : '';
     }
 
 }

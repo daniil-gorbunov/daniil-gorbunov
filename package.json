@@ -5,7 +5,9 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build": "set NODE_ENV=development&&webpack",
+    "wp-srv": "webpack-dev-server",
+    "node-srv": "static public -f headers.json"
   },
   "repository": {
     "type": "git",
@@ -27,6 +29,7 @@
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
     "lodash": "^4.17.2",
+    "moment": "^2.17.1",
     "style-loader": "^0.13.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.4.0",
@@ -37,6 +40,7 @@
     "babel-core": "^6.0.14",
     "babel-loader": "^6.0.0",
     "babel-preset-es2015": "^6.0.14",
-    "html-webpack-plugin": "^2.24.1"
+    "html-webpack-plugin": "^2.24.1",
+    "node-static": "^0.7.9"
   }
 }
