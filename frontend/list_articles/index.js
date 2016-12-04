@@ -1,13 +1,12 @@
 'use strict';
 
 import template from './articles.jade';
+import forEach from 'lodash/forEach';
 
 export default class ListArticles {
 
     constructor(options, callback) {
-        for (let article of article) {
-            ListArticles.beautify(article);
-        }
+        forEach(options.articles, (article) => ListArticles.beautify(article));
 
         const list = document.createElement('div');
         list.innerHTML = template(options);

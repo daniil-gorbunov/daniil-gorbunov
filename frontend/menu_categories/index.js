@@ -15,7 +15,7 @@ export default class MenuCategories {
                 MenuCategories.setActive(id);
                 menu.querySelector('li.active').classList.remove('active');
                 item.classList.add('active');
-                callback()
+                callback();
             })
         }
 

@@ -1,6 +1,6 @@
 'use strict';
 
-import _ from 'lodash';
+import find from 'lodash/find';
 
 const categories = [
     {
@@ -56,7 +56,7 @@ class CategoriesService {
     }
 
     getCategory(id){
-        return _.find(this.categories, {id: id});
+        return find(this.categories, {id: id});
     }
 }
 

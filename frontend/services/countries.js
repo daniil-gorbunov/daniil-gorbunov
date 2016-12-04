@@ -1,6 +1,6 @@
 'use strict';
 
-import _ from 'lodash';
+import find from 'lodash/find';
 
 const countries = [
     {
@@ -54,7 +54,7 @@ class CountriesService {
     }
 
     getCountry(id){
-        return _.find(this.countries, {'id': id});
+        return find(this.countries, {'id': id});
     }
 }
 

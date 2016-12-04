@@ -1,6 +1,6 @@
 'use strict';
 
-import _ from 'lodash';
+import find from 'lodash/find';
 
 const languages = [
     {
@@ -39,7 +39,7 @@ class LanguagesService {
     }
 
     getLanguage(id){
-        return _.find(this.languages, {'id': id});
+        return find(this.languages, {'id': id});
     }
 }
 

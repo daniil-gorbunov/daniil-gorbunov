@@ -30,7 +30,6 @@ function loadSources() {
 
     source.get(params)
         .then(function (sources) {
-            ARTICLES_CONTAINER.innerHTML = '';
             for (let source of sources) {
                 loadArticles(source);
             }
@@ -47,18 +46,19 @@ function loadArticles(source) {
         ['source', source.id],
     ]);
 
+
+    ARTICLES_CONTAINER.innerHTML = '';
+    NOTIFICATION_CONTAINER.innerText = '';
     article.get(params)
         .then(function (articles) {
             displayArticles(articles);
         })
         .catch(function(err){
-            ARTICLES_CONTAINER.innerHTML = '';
             NOTIFICATION_CONTAINER.innerText = err.message;
         });
 }
 
 function displayArticles(articles){
-    console.log(articles);
     require.ensure([], function (require) {
 
         const ListArticles = require('./list_articles').default;

@@ -1,16 +1,16 @@
 'use strict';
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
-const webpack = require('webpack');
 
-let path = require('path');
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 
     context: __dirname + '/frontend',
-    entry:  ['babel-polyfill', './main'],
+    entry:  './main',
     output:  {
         path:     __dirname + '/public',
         publicPath: '',
@@ -28,6 +28,7 @@ module.exports = {
 
     plugins: [
         new webpack.DefinePlugin({NODE_ENV: JSON.stringify(NODE_ENV)}),
+        new webpack.optimize.CommonsChunkPlugin({name: 'common'}),
         new ExtractTextPlugin('[name].css', {allChunks: true}),
         new HtmlWebpackPlugin({filename: 'index.html', template: 'index.jade'})
     ],

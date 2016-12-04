@@ -11,17 +11,10 @@ export default class Source extends BaseModel {
         return super.get(params)
             .then(function(data){
                 if(data.status === 'ok'){
-                    return Source.generator(data);
+                    return data.sources;
                 } else{
                     throw new Error(data.message);
                 }
             })
-    }
-
-    static * generator(response) {
-        let idx = 0;
-        while (idx < response.sources.length) {
-            yield response.sources[idx++];
-        }
     }
 };
