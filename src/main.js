@@ -31,7 +31,7 @@ function loadSources() {
     ]);
 
     source.get(params)
-        .then(sources  => forEach(sources, loadArticles))
+        .then(sources => forEach(sources, loadArticles))
         .catch(err => showNotification(err.message))
 }
 
