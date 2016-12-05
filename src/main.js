@@ -5,6 +5,7 @@ import countriesService from 'services/countries';
 import languagesService from 'services/languages';
 import settingsService from 'services/settings';
 import ModelFactory from 'models/model_factory';
+import forEach from 'lodash/forEach';
 import 'styles'
 
 const NOTIFICATION_CONTAINER = document.getElementById('notification');
@@ -30,13 +31,8 @@ function loadSources() {
     ]);
 
     source.get(params)
-        .then(function (sources) {
-            for (let source of sources) {
-                loadArticles(source);
-            }
-        })
-        .catch((err) => showNotification(err.message))
-    ;
+        .then(sources  => forEach(sources, loadArticles))
+        .catch(err => showNotification(err.message))
 }
 
 function loadArticles(source) {
@@ -48,9 +44,8 @@ function loadArticles(source) {
     ARTICLES_CONTAINER.innerHTML = '';
     NOTIFICATION_CONTAINER.innerText = '';
     article.get(params)
-        .then((articles) => displayArticles(articles))
-        .catch((err) => showNotification(err.message))
-    ;
+        .then(articles => displayArticles(articles))
+        .catch(err => showNotification(err.message))
 }
 
 function displayArticles(articles) {
