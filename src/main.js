@@ -3,9 +3,8 @@
 import settingsService from 'services/settings';
 import categoriesService from 'services/categories';
 import countriesService from 'services/countries';
-import languagesService from 'services/languages'
-import Source from 'models/source';
-import Article from 'models/article';
+import languagesService from 'services/languages';
+import ModelFactory from 'models/model_factory';
 import 'styles'
 
 loadCategoriesMenu();
@@ -14,9 +13,10 @@ loadLanguagesMenu();
 
 const ARTICLES_CONTAINER = document.getElementById('articles');
 const NOTIFICATION_CONTAINER = document.getElementById('notification');
+const modelFactory = new ModelFactory();
 
 function loadSources() {
-    const source = new Source();
+    const source = modelFactory.getSourcesModel();
 
     const category = categoriesService.getCategory(settingsService.get('category'));
     const country = countriesService.getCountry(settingsService.get('country'));
@@ -41,11 +41,10 @@ function loadSources() {
 }
 
 function loadArticles(source) {
-    const article = new Article();
+    const article = modelFactory.getArticlesModel();
     const params = new Map([
         ['source', source.id],
     ]);
-
 
     ARTICLES_CONTAINER.innerHTML = '';
     NOTIFICATION_CONTAINER.innerText = '';
@@ -75,16 +74,7 @@ function loadCategoriesMenu() {
     require.ensure([], function (require) {
 
         const MenuCategories = require('./menu_categories').default;
-        const categoriesService = require('./services/categories').default;
-
-        const categories = categoriesService.getCategories();
-
-        let menu = new MenuCategories({
-            categories: categories,
-            activeCategory: settingsService.get('category')
-        }, function(){
-            loadSources();
-        });
+        const menu = new MenuCategories(loadSources);
 
         document.getElementById('top-menu').appendChild(menu.elem);
     });
@@ -94,14 +84,7 @@ function loadCountriesMenu() {
     require.ensure([], function (require) {
 
         const MenuCountries = require('./menu_countries').default;
-        const countriesService = require('./services/countries').default;
-
-        let menu = new MenuCountries({
-            countries: countriesService.getCountries(),
-            activeCountry: settingsService.get('country')
-        }, function(){
-            loadSources();
-        });
+        const menu = new MenuCountries(loadSources);
 
         document.getElementById('top-menu').appendChild(menu.elem);
     });
@@ -111,14 +94,7 @@ function loadLanguagesMenu() {
     require.ensure([], function (require) {
 
         const MenuLanguages = require('./menu_languages').default;
-        const languagesService = require('./services/languages').default;
-
-        let menu = new MenuLanguages({
-            languages: languagesService.getLanguages(),
-            activeLanguage: settingsService.get('language')
-        }, function(){
-            loadSources();
-        });
+        const menu = new MenuLanguages(loadSources);
 
         document.getElementById('top-menu').appendChild(menu.elem);
     });

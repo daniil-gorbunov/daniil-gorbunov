@@ -1,14 +1,18 @@
 'use strict';
 
 import template from './menu.jade';
-import settings from 'services/settings'
+import settings from 'services/settings';
+import categoriesService from 'services/categories';
 import './index.styl'
 
 export default class MenuCategories {
 
-    constructor(options, callback) {
+    constructor(clickCallback) {
         const menu = document.createElement('div');
-        menu.innerHTML = template(options);
+        menu.innerHTML = template({
+            categories: categoriesService.getCategories(),
+            activeCategory: settings.get('category')
+        });
 
         for (let item of menu.querySelectorAll('li')) {
             const id = item.getAttribute('data-category');
@@ -19,7 +23,7 @@ export default class MenuCategories {
                     activeItem.classList.remove('active');
                 }
                 item.classList.add('active');
-                callback();
+                clickCallback();
             })
         }
 
