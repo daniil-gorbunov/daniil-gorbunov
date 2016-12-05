@@ -9,7 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 
-    context: __dirname + '/frontend',
+    context: __dirname + '/src',
     entry:  './main',
     output:  {
         path:     __dirname + '/public',
@@ -18,7 +18,7 @@ module.exports = {
     },
 
     resolve: {
-        root: path.resolve('./frontend'),
+        root: path.resolve('./src'),
         extensions: ['', '.js', '.styl']
     },
 
@@ -43,7 +43,7 @@ module.exports = {
             loader: "jade"
         }, {
             test:   /\.styl$/,
-            loader: ExtractTextPlugin.extract('css!stylus?paths[]=node_modules,paths[]=frontend&include css&resolve url')
+            loader: ExtractTextPlugin.extract('css!stylus?paths[]=node_modules,paths[]=src&include css&resolve url')
         }, {
             test:   /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
             loader: 'url?name=[path][name].[ext]&limit=4096'
