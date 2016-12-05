@@ -37,9 +37,8 @@ function loadSources() {
 
 function loadArticles(source) {
     const article = modelFactory.getArticlesModel();
-    const params = new Map([
-        ['source', source.id]
-    ]);
+
+    const params = new Map([['source', source.id]]);
 
     ARTICLES_CONTAINER.innerHTML = '';
     NOTIFICATION_CONTAINER.innerText = '';
