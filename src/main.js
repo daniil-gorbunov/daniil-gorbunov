@@ -7,13 +7,14 @@ import languagesService from 'services/languages';
 import ModelFactory from 'models/model_factory';
 import 'styles'
 
+const NOTIFICATION_CONTAINER = document.getElementById('notification');
+const ARTICLES_CONTAINER = document.getElementById('articles');
+const TOP_MENU = document.getElementById('top-menu');
+const modelFactory = new ModelFactory();
+
 loadCategoriesMenu();
 loadCountriesMenu();
 loadLanguagesMenu();
-
-const ARTICLES_CONTAINER = document.getElementById('articles');
-const NOTIFICATION_CONTAINER = document.getElementById('notification');
-const modelFactory = new ModelFactory();
 
 function loadSources() {
     const source = modelFactory.getSourcesModel();
@@ -34,68 +35,57 @@ function loadSources() {
                 loadArticles(source);
             }
         })
-        .catch(function(err){
-            ARTICLES_CONTAINER.innerHTML = '';
-            NOTIFICATION_CONTAINER.innerText = err.message;
-        });
+        .catch((err) => showNotification(err.message))
+    ;
 }
 
 function loadArticles(source) {
     const article = modelFactory.getArticlesModel();
     const params = new Map([
-        ['source', source.id],
+        ['source', source.id]
     ]);
 
     ARTICLES_CONTAINER.innerHTML = '';
     NOTIFICATION_CONTAINER.innerText = '';
     article.get(params)
-        .then(function (articles) {
-            displayArticles(articles);
-        })
-        .catch(function(err){
-            NOTIFICATION_CONTAINER.innerText = err.message;
-        });
+        .then((articles) => displayArticles(articles))
+        .catch((err) => showNotification(err.message))
+    ;
 }
 
-function displayArticles(articles){
+function displayArticles(articles) {
     require.ensure([], function (require) {
-
         const ListArticles = require('./list_articles').default;
-
-        let list = new ListArticles({
-            articles: articles
-        });
-
+        const list = new ListArticles({articles});
         ARTICLES_CONTAINER.innerHTML += list.elem.innerHTML;
     });
 }
 
+function showNotification(msg) {
+    ARTICLES_CONTAINER.innerHTML = '';
+    NOTIFICATION_CONTAINER.innerText = msg;
+}
+
 function loadCategoriesMenu() {
     require.ensure([], function (require) {
-
         const MenuCategories = require('./menu_categories').default;
         const menu = new MenuCategories(loadSources);
-
-        document.getElementById('top-menu').appendChild(menu.elem);
+        TOP_MENU.appendChild(menu.elem);
     });
 }
 
 function loadCountriesMenu() {
     require.ensure([], function (require) {
-
         const MenuCountries = require('./menu_countries').default;
         const menu = new MenuCountries(loadSources);
-
-        document.getElementById('top-menu').appendChild(menu.elem);
+        TOP_MENU.appendChild(menu.elem);
     });
 }
 
 function loadLanguagesMenu() {
     require.ensure([], function (require) {
-
         const MenuLanguages = require('./menu_languages').default;
         const menu = new MenuLanguages(loadSources);
-
-        document.getElementById('top-menu').appendChild(menu.elem);
+        TOP_MENU.appendChild(menu.elem);
     });
 }
