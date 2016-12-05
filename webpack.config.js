@@ -10,9 +10,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
 
     context: __dirname + '/src',
-    entry:  ['babel-polyfill', './main'],
-    output:  {
-        path:     __dirname + '/public',
+    entry: ['babel-polyfill', './main'],
+    output: {
+        path: __dirname + '/public',
         publicPath: '',
         filename: '[name].js'
     },
@@ -36,16 +36,16 @@ module.exports = {
 
     module: {
         loaders: [{
-            test:   /\.js$/,
+            test: /\.js$/,
             loader: "babel?presets[]=es2015"
         }, {
-            test:   /\.jade$/,
+            test: /\.jade$/,
             loader: "jade"
         }, {
-            test:   /\.styl$/,
+            test: /\.styl$/,
             loader: ExtractTextPlugin.extract('style', 'css!stylus?paths[]=node_modules,paths[]=src&include css&resolve url')
         }, {
-            test:   /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
+            test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
             loader: 'url?name=[path][name].[ext]?[hash]&limit=4096'
         }]
     },
