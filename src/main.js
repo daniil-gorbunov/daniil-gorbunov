@@ -1,9 +1,9 @@
 'use strict';
 
-import settingsService from 'services/settings';
 import categoriesService from 'services/categories';
 import countriesService from 'services/countries';
 import languagesService from 'services/languages';
+import settingsService from 'services/settings';
 import ModelFactory from 'models/model_factory';
 import 'styles'
 
