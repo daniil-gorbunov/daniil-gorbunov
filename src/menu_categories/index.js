@@ -7,7 +7,7 @@ import './index.styl'
 
 export default class MenuCategories {
 
-    constructor(clickCallback) {
+    constructor(clickCallback, mediator) {
         const menu = document.createElement('div');
         menu.innerHTML = template({
             categories: categoriesService.getCategories(),
@@ -23,6 +23,10 @@ export default class MenuCategories {
                     activeItem.classList.remove('active');
                 }
                 item.classList.add('active');
+                mediator.notify({
+                    type: 'categorySelected',
+                    value: id
+                });
                 clickCallback();
             })
         }

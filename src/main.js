@@ -17,6 +17,14 @@ loadCategoriesMenu();
 loadCountriesMenu();
 loadLanguagesMenu();
 
+class MenuMediator {
+    notify(event){
+        console.log(event);
+    }
+}
+
+const menuMediator = new MenuMediator();
+
 function loadSources() {
     const source = modelFactory.getSourcesModel();
 
@@ -63,7 +71,7 @@ function showNotification(msg) {
 function loadCategoriesMenu() {
     require.ensure([], function (require) {
         const MenuCategories = require('./menu_categories').default;
-        const menu = new MenuCategories(loadSources);
+        const menu = new MenuCategories(loadSources, menuMediator);
         TOP_MENU.appendChild(menu.elem);
     });
 }
@@ -71,7 +79,7 @@ function loadCategoriesMenu() {
 function loadCountriesMenu() {
     require.ensure([], function (require) {
         const MenuCountries = require('./menu_countries').default;
-        const menu = new MenuCountries(loadSources);
+        const menu = new MenuCountries(loadSources, menuMediator);
         TOP_MENU.appendChild(menu.elem);
     });
 }
@@ -79,7 +87,7 @@ function loadCountriesMenu() {
 function loadLanguagesMenu() {
     require.ensure([], function (require) {
         const MenuLanguages = require('./menu_languages').default;
-        const menu = new MenuLanguages(loadSources);
+        const menu = new MenuLanguages(loadSources, menuMediator);
         TOP_MENU.appendChild(menu.elem);
     });
 }
