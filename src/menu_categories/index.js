@@ -7,7 +7,7 @@ import './index.styl'
 
 export default class MenuCategories {
 
-    constructor(clickCallback, mediator) {
+    constructor(mediator) {
         const menu = document.createElement('div');
         menu.innerHTML = template({
             categories: categoriesService.getCategories(),
@@ -17,9 +17,8 @@ export default class MenuCategories {
         for (let item of menu.querySelectorAll('li')) {
             const id = item.getAttribute('data-category');
             item.addEventListener('click', function () {
-                MenuCategories.setActive(id);
                 const activeItem = menu.querySelector('li.active');
-                if(activeItem) {
+                if (activeItem) {
                     activeItem.classList.remove('active');
                 }
                 item.classList.add('active');
@@ -27,14 +26,9 @@ export default class MenuCategories {
                     type: 'categorySelected',
                     value: id
                 });
-                clickCallback();
             })
         }
 
         this.elem = menu;
-    }
-
-    static setActive(id) {
-        settings.set('category', id);
     }
 }

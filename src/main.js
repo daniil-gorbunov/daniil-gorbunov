@@ -1,29 +1,23 @@
 'use strict';
 
+import 'styles'
 import categoriesService from 'services/categories';
 import countriesService from 'services/countries';
 import languagesService from 'services/languages';
+import menuMediator from 'services/menu_mediator';
 import settingsService from 'services/settings';
 import ModelFactory from 'models/model_factory';
 import forEach from 'lodash/forEach';
-import 'styles'
 
 const NOTIFICATION_CONTAINER = document.getElementById('notification');
 const ARTICLES_CONTAINER = document.getElementById('articles');
 const TOP_MENU = document.getElementById('top-menu');
 const modelFactory = new ModelFactory();
 
+menuMediator.setMainLoader(loadSources);
 loadCategoriesMenu();
 loadCountriesMenu();
 loadLanguagesMenu();
-
-class MenuMediator {
-    notify(event){
-        console.log(event);
-    }
-}
-
-const menuMediator = new MenuMediator();
 
 function loadSources() {
     const source = modelFactory.getSourcesModel();
@@ -71,7 +65,7 @@ function showNotification(msg) {
 function loadCategoriesMenu() {
     require.ensure([], function (require) {
         const MenuCategories = require('./menu_categories').default;
-        const menu = new MenuCategories(loadSources, menuMediator);
+        const menu = new MenuCategories(menuMediator);
         TOP_MENU.appendChild(menu.elem);
     });
 }
@@ -79,7 +73,7 @@ function loadCategoriesMenu() {
 function loadCountriesMenu() {
     require.ensure([], function (require) {
         const MenuCountries = require('./menu_countries').default;
-        const menu = new MenuCountries(loadSources, menuMediator);
+        const menu = new MenuCountries(menuMediator);
         TOP_MENU.appendChild(menu.elem);
     });
 }
@@ -87,7 +81,7 @@ function loadCountriesMenu() {
 function loadLanguagesMenu() {
     require.ensure([], function (require) {
         const MenuLanguages = require('./menu_languages').default;
-        const menu = new MenuLanguages(loadSources, menuMediator);
+        const menu = new MenuLanguages(menuMediator);
         TOP_MENU.appendChild(menu.elem);
     });
 }

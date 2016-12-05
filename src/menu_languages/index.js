@@ -7,7 +7,7 @@ import './index.styl';
 
 export default class MenuLanguages {
 
-    constructor(clickCallback) {
+    constructor(mediator) {
         const menu = document.createElement('div');
         menu.innerHTML = template({
             languages: languagesService.getLanguages(),
@@ -17,17 +17,15 @@ export default class MenuLanguages {
         for (let item of menu.querySelectorAll('li')) {
             const id = item.getAttribute('data-language');
             item.addEventListener('click', function () {
-                MenuLanguages.setActive(id);
                 menu.querySelector('li.active').classList.remove('active');
                 item.classList.add('active');
-                clickCallback();
+                mediator.notify({
+                    type: 'languageSelected',
+                    value: id
+                });
             })
         }
 
         this.elem = menu;
-    }
-
-    static setActive(id) {
-        settings.set('language', id);
     }
 }

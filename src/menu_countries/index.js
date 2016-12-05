@@ -7,7 +7,7 @@ import './index.styl';
 
 export default class MenuCountries {
 
-    constructor(clickCallback) {
+    constructor(mediator) {
         const menu = document.createElement('div');
         menu.innerHTML = template({
             countries: countriesService.getCountries(),
@@ -17,17 +17,15 @@ export default class MenuCountries {
         for (let item of menu.querySelectorAll('li')) {
             const id = item.getAttribute('data-country');
             item.addEventListener('click', function () {
-                MenuCountries.setActive(id);
                 menu.querySelector('li.active').classList.remove('active');
                 item.classList.add('active');
-                clickCallback();
+                mediator.notify({
+                    type: 'countrySelected',
+                    value: id
+                });
             })
         }
 
         this.elem = menu;
-    }
-
-    static setActive(id) {
-        settings.set('country', id);
     }
 }
