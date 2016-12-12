@@ -1,0 +1,132 @@
+/**** 1 ****/
+mongodump -h ds119508.mlab.com:19508 -d mentoring -u writer -p qwe123 -o d:\ --gzip
+
+
+
+/**** 2 ****/
+db.createCollection('articles');
+db.createCollection('authors');
+db.createCollection('tags');
+
+db.getCollection('articles').insert([
+{
+    "_id" : 1,
+    "header" : "Article 1",
+    "description" : "Short description of article 1",
+    "content" : "Full content of article 1",
+    "pub_date" : ISODate("2015-02-20T22:40:20.201Z"),
+    "views" : NumberLong(7560000),
+    "author" : 1,
+    "tags" : [ 
+        1, 
+        2
+    ],
+    "comments" : [ 
+        {
+            "author" : {
+                "first_name" : "jsut",
+                "last_name" : "someone"
+            },
+            "pub_date" : ISODate("2016-12-16T08:35:20.201Z"),
+            "content" : "i'm totally agree with it"
+        }, 
+        {
+            "author" : {
+                "first_name" : "anonymus",
+                "last_name" : ""
+            },
+            "pub_date" : ISODate("2016-12-16T08:35:20.201Z"),
+            "content" : "author drink poison pls"
+        }
+    ]
+},{
+    "_id" : 2,
+    "header" : "Article 2",
+    "description" : "Short description of article 2",
+    "content" : "Full content of article 2",
+    "pub_date" : ISODate("2015-02-21T22:40:20.201Z"),
+    "views" : NumberLong(226000),
+    "author" : 3,
+    "tags" : [ 
+        1, 
+        3, 
+        4
+    ],
+    "comments" : [ 
+        {
+            "author" : {
+                "first_name" : "vasya",
+                "last_name" : "pupkin"
+            },
+            "pub_date" : ISODate("2016-12-16T08:35:20.201Z"),
+            "content" : "i dont think so at all"
+        }
+    ]
+},{
+    "_id" : 3,
+    "header" : "Article 3",
+    "description" : "another short description of article 3",
+    "content" : "here goes full content of article 3",
+    "pub_date" : ISODate("2015-02-22T22:40:20.201Z"),
+    "views" : NumberLong(22000),
+    "author" : 3,
+    "tags" : [ 
+        1, 
+        2, 
+        4
+    ],
+    "comments" : [ 
+        {
+            "author" : {
+                "first_name" : "fedya",
+                "last_name" : "petrov"
+            },
+            "pub_date" : ISODate("2016-12-16T08:35:20.201Z"),
+            "content" : "ololo"
+        }
+    ]
+}
+]);
+
+db.getCollection('articles').find({views: {$gt: 200000}});
+
+db.getCollection('articles').update(
+	{views: {$gt: 200000}},
+	{$set: {header: "[Most Viewed] " + this.header}}
+);
+
+db.getCollection('articles').deleteMany({views: {$lt: 200000}});
+
+
+
+/**** 3 ****/
+db.getCollection('articles').createIndex({views: 1});
+db.getCollection('articles').createIndex({pub_date: -1});
+db.getCollection('tags').createIndex({title: "text"});
+
+
+
+/**** 4 ****/
+mongoimport -h ds119548.mlab.com:19548 -d mentoring -c grades -u writer -p qwe123 --file grades.json
+
+db.grades.aggregate([
+    {$unwind: "$scores"},
+    {$match: {"scores.type": {$ne: "quiz"}}},
+    {$group: {
+        _id: {
+            student_id: "$student_id",
+            class_id: "$class_id"
+        },
+        student_avg: {$avg: "$scores.score"}
+    }},
+    {$group: {
+        _id: "$_id.class_id", 
+        class_avg: {$avg: "$student_avg"}
+    }},
+    {$sort: {"class_avg": -1}},
+    {$limit: 1}
+])
+
+
+
+/**** 5 ****/
