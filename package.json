@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "set NODE_ENV=development&&webpack",
-    "wp-srv": "webpack-dev-server",
+    "wp-srv": "webpack-dev-server --inline --hot",
     "node-srv": "static public -f headers.json"
   },
   "repository": {
@@ -39,8 +39,11 @@
   "devDependencies": {
     "babel-core": "^6.0.14",
     "babel-loader": "^6.0.0",
+    "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.0.14",
+    "es6-promise": "^4.0.5",
     "html-webpack-plugin": "^2.24.1",
-    "node-static": "^0.7.9"
+    "node-static": "^0.7.9",
+    "webpack-dev-server": "^1.16.2"
   }
 }
