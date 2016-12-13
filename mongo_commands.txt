@@ -130,3 +130,8 @@ db.grades.aggregate([
 
 
 /**** 5 ****/
+mongod --replSet replica1 --dbpath /data/rs1 --port 27017
+mongod --replSet replica1 --dbpath /data/rs2 --port 27018
+mongod --replSet replica1 --dbpath /data/rs3 --port 27019
+
+mongo --port 27018 < mongo_replica_config.js
